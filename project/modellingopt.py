@@ -7,6 +7,11 @@ from sklearn.metrics import precision_score, recall_score, f1_score
 import random
 import numpy as np
 
+# Konfigurasi Parameter
+DATASET_PATH = "train_pca.csv"
+N_ESTIMATORS_RANGE = np.linspace(10, 100, 3, dtype=int)
+MAX_DEPTH_RANGE = np.linspace(1, 50, 3, dtype=int)
+
 # Set Tracking melalui DagsHub
 dagshub.init(
     repo_owner="Sulbae",
@@ -17,7 +22,7 @@ dagshub.init(
 # Create a new MLflow Experiment
 mlflow.set_experiment("Latihan Tuning Credit Scoring")
 
-data = pd.read_csv("train_pca.csv")
+data = pd.read_csv(DATASET_PATH)
 
 X_train, X_test, y_train, y_test = train_test_split(
     data.drop("Credit_Score", axis=1), 
@@ -28,16 +33,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 input_example = X_train.iloc[0:5]
 
-# Mendefinisikan Metode Random Search
-n_estimator_range = np.linspace(10, 100, 3, dtype=int)
-max_depth_range = np.linspace(1, 50, 3, dtype=int)
-
 best_acc = 0
 best_params = {}
 best_model = None
 
-for n_estimators in n_estimator_range:
-    for max_depth in max_depth_range:
+for n_estimators in N_ESTIMATORS_RANGE:
+    for max_depth in MAX_DEPTH_RANGE:
         with mlflow.start_run(run_name=f"elastic_search_{n_estimators}_{max_depth}"):
 
             # Log Parameter
@@ -75,7 +76,7 @@ for n_estimators in n_estimator_range:
                 }
                 best_model = model
 
-with mlflow.start_run(run_name="best_model_run") as run:
+with mlflow.start_run(run_name="best_model_run"):
     mlflow.log_params(best_params)
     mlflow.log_metric("best_accuracy", best_acc)
 
