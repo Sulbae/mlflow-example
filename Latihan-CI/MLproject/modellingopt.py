@@ -29,7 +29,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 input_example = X_train.iloc[0:5]
 
 # Mendefinisikan Metode Random Search
-n_estimator_range = np.linspace(1, 100, 3, dtype=int)
+n_estimator_range = np.linspace(10, 100, 3, dtype=int)
 max_depth_range = np.linspace(1, 50, 3, dtype=int)
 
 best_acc = 0
