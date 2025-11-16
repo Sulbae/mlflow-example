@@ -11,6 +11,7 @@ dagshub.init(
     repo_owner="Sulbae",
     repo_name="Latihan-MLFlow",
     mlflow=True
+)
 
 # Create a new MLflow Experiment
 mlflow.set_experiment("Latihan Tuning Credit Scoring")
