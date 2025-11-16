@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  CSV_URL: "Latihan-CI/MLproject/train_pca.csv"
+  CSV_URL: "./project/train_pca.csv"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,9 +45,9 @@ jobs:
       # Run mlflow project: train_fixed
       - name: Run mlflow project for Fixed Model
         run: |
-          mlflow run Latihan-CI/MLproject -e train_fixed -P dataset=$CSV_URL
+          mlflow run ./project -e train_fixed -P dataset=$CSV_URL
       
       # Run mlflow project: train_tuning
       - name: Run mlflow project for Tuning Model
         run: |
-          mlflow run Latihan-CI/MLproject -e train_tuning -P dataset=$CSV_URL
+          mlflow run ./project -e train_tuning -P dataset=$CSV_URL

@@ -7,7 +7,7 @@ entry_points:
     parameters:
       n_estimators: {type: int, default: 505}
       max_depth: {type: int, default: 35}
-      dataset: {type: string, default: "train_pca.csv"}
+      dataset: {type: str, default: "train_pca.csv"}
     command: >
       python modelling.py 
       --n_estimators {n_estimators} 
@@ -17,6 +17,6 @@ entry_points:
   train_tuning:
     parameters:
       dataset: {type: str, default: "train_pca.csv"}
-    command:
+    command: >
       python modellingopt.py
       --dataset {dataset}
