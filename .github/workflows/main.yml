@@ -1,5 +1,9 @@
 name: CI MLflow
 
+defaults:
+  run:
+    shell: bash -l {0}
+
 on:
   push:
     branches:
@@ -37,6 +41,7 @@ jobs:
       # Install mlflow
       - name: Install dependencies
         run: |
+          conda activate mlflow-base
           pip install dagshub "mlflow>=2,<3" pandas numpy scikit-learn
       
       # Set DagsHub MLflow credentials
@@ -49,9 +54,11 @@ jobs:
       # Run mlflow project: train_fixed
       - name: Run mlflow project for Fixed Model
         run: |
+          conda activate mlflow-base
           mlflow run ./project -e train_fixed -P dataset=$CSV_URL
       
       # Run mlflow project: train_tuning
       - name: Run mlflow project for Tuning Model
         run: |
+          conda activate mlflow-base
           mlflow run ./project -e train_tuning -P dataset=$CSV_URL
