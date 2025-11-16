@@ -22,7 +22,7 @@ mlflow.set_experiment("Latihan Credit Scoring")
 # Aktifkan autolog
 mlflow.autolog(log_models=False)
 
-data = pd.read_csv("train_pca.csv")
+data = pd.read_csv(DATASET_PATH)
 
 X_train, X_test, y_train, y_test = train_test_split(
     data.drop("Credit_Score", axis=1), 
