@@ -1,6 +1,7 @@
 name: latihan-cs-mlflow
 
-conda_env: conda.yaml
+docker_env: 
+  image: sulbae/mlflow-env:latest
 
 entry_points:
   train_fixed:

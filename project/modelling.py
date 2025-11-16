@@ -6,6 +6,11 @@ from sklearn.model_selection import train_test_split
 import random
 import numpy as np
 
+# Konfigurasi Parameter
+DATASET_PATH = "train_pca.csv"
+N_ESTIMATOR = 100
+MAX_DEPTH = 5
+
 # Set Tracking melalui DagsHub
 dagshub.init(
     repo_owner="Sulbae",
@@ -31,16 +36,13 @@ input_example = X_train.iloc[0:5]
 with mlflow.start_run():
     
     # Log parameters
-    n_estimators = 505
-    max_depth = 37
-
-    mlflow.log_param("n_estimators", n_estimators)
-    mlflow.log_param("max_depth", max_depth)
+    mlflow.log_param("n_estimators", N_ESTIMATOR)
+    mlflow.log_param("max_depth", MAX_DEPTH)
     
     # Train model
     model = RandomForestClassifier(
-        n_estimators=n_estimators,
-        max_depth=max_depth
+        n_estimators=N_ESTIMATOR,
+        max_depth=MAX_DEPTH
     )
     model.fit(X_train, y_train)
 
