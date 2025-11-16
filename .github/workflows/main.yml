@@ -19,13 +19,13 @@ jobs:
       - uses: actions/checkout@v3
 
       # Setup Python 3.12.7
-      - name: Set up Python 3.12.7
+      - name: Set up Python 3.12.12
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12.7"
+          python-version: "3.12.12"
 
       # Check Env Variables
-      - name: Check Env
+      - name: Check Path
         run: |
           echo $CSV_URL
 
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install dagshub "mlflow>=2,<3"
+          pip install dagshub "mlflow>=2,<3" pandas numpy scikit-learn
       
       # Set DagsHub MLflow credentials
       - name: Set env for DagsHub
@@ -42,7 +42,12 @@ jobs:
           echo MLFLOW_TRACKING_PASSWORD=${{ secrets.DAGSHUB_TOKEN }} >> $GITHUB_ENV
           echo MLFLOW_TRACKING_URI=https://dagshub.com/Sulbae/Latihan-MLFlow.mlflow >> $GITHUB_ENV
 
-      # Run as a mlflow project
-      - name: Run mlflow project
+      # Run mlflow project: train_fixed
+      - name: Run mlflow project for Fixed Model
         run: |
-          mlflow run Latihan-CI/MLproject
+          mlflow run Latihan-CI/MLproject -e train_fixed -P dataset=$CSV_URL
+      
+      # Run mlflow project: train_tuning
+      - name: Run mlflow project for Tuning Model
+        run: |
+          mlflow run Latihan-CI/MLproject -e train_tuning -P dataset=$CSV_URL
