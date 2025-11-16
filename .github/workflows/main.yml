@@ -3,18 +3,13 @@ name: CI MLflow
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 env:
-  CSV_URL: "Project/wine-quality.csv"
-  TARGET_VAR: "quality"
-  ALPHA: 0.5
-  L1_RATIO: 0.5
-  RANDOM_STATE: 42
-
+  CSV_URL: "Latihan-CI/MLproject/train_pca.csv"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -43,4 +38,4 @@ jobs:
       # Run as a mlflow project
       - name: Run mlflow project
         run: |
-          mlflow run Project --env-manager=local
+          mlflow run Latihan-CI/MLproject --env-manager=local
