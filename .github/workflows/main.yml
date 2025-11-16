@@ -3,10 +3,10 @@ name: CI MLflow
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 env:
   CSV_URL: "Latihan-CI/MLproject/train_pca.csv"
